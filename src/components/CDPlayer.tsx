@@ -91,7 +91,7 @@ const SongLabel = styled.div`
 const CDPlayer: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [stations, setStations] = useState<any[]>([]);
   const [currentStation, setCurrentStation] = useState<string | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  // const [isPlaying, setIsPlaying] = useState(false);
 
   // Khởi tạo RadioBrowserApi
   const api = new RadioBrowserApi('My Radio App');
@@ -112,13 +112,13 @@ const CDPlayer: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   // Play a station
   const playStation = (url: string) => {
     setCurrentStation(url);
-    setIsPlaying(true);
+    // setIsPlaying(true);
   };
 
   // Stop playing
   const stopStation = () => {
     setCurrentStation(null);
-    setIsPlaying(false);
+    // setIsPlaying(false);
   };
 
   // Fetch stations khi component được mount
