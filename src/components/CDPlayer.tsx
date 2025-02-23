@@ -101,7 +101,7 @@ const CDPlayer: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     try {
       const stations = await api.searchStations({
         language: 'english', // Lọc theo ngôn ngữ (tùy chọn)
-        limit: 10, // Giới hạn số lượng stations
+        limit: 20, // Giới hạn số lượng stations
       });
       setStations(stations);
     } catch (error) {
