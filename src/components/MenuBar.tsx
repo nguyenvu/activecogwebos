@@ -86,6 +86,38 @@ const MenuBar: React.FC<{ onOpenCDPlayer: () => void; onOpenAboutThisMac: () => 
         )}
       </AppleIcon>
 
+      {/* Menu File */}
+      <MenuItem
+        onClick={() => setShowFileMenu(!showFileMenu)}
+        onMouseLeave={() => setShowFileMenu(false)}
+      >
+        File
+        {showFileMenu && (
+          <DropdownMenu>
+            <div>New</div>
+            <div>Open</div>
+            <div>Save</div>
+            <div>Exit</div>
+          </DropdownMenu>
+        )}
+      </MenuItem>
+
+      {/* Menu Edit */}
+      <MenuItem
+        onClick={() => setShowEditMenu(!showEditMenu)}
+        onMouseLeave={() => setShowEditMenu(false)}
+      >
+        Edit
+        {showEditMenu && (
+          <DropdownMenu>
+            <div>Undo</div>
+            <div>Cut</div>
+            <div>Copy</div>
+            <div>Paste</div>
+          </DropdownMenu>
+        )}
+      </MenuItem>
+
       {/* Menu File và Edit (giữ nguyên như trước) */}
     </MenuBarContainer>
   );
