@@ -82,16 +82,10 @@ const WindowButton = styled.div`
   }
 `;
 
-const SongLabel = styled.div`
-  margin-bottom: 8px;
-  font-weight: bold;
-`;
-
 // CDPlayer component
 const CDPlayer: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [stations, setStations] = useState<any[]>([]);
   const [currentStation, setCurrentStation] = useState<string | null>(null);
-  // const [isPlaying, setIsPlaying] = useState(false);
 
   // Khởi tạo RadioBrowserApi
   const api = new RadioBrowserApi('My Radio App');
@@ -101,7 +95,7 @@ const CDPlayer: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     try {
       const stations = await api.searchStations({
         language: 'english', // Lọc theo ngôn ngữ (tùy chọn)
-        limit: 20, // Giới hạn số lượng stations
+        limit: 10, // Giới hạn số lượng stations
       });
       setStations(stations);
     } catch (error) {
@@ -111,14 +105,13 @@ const CDPlayer: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
   // Play a station
   const playStation = (url: string) => {
-    setCurrentStation(url);
-    // setIsPlaying(true);
+    const secureUrl = url.replace('http://', 'https://'); // Đảm bảo URL là HTTPS
+    setCurrentStation(secureUrl);
   };
 
   // Stop playing
   const stopStation = () => {
     setCurrentStation(null);
-    // setIsPlaying(false);
   };
 
   // Fetch stations khi component được mount
@@ -132,10 +125,10 @@ const CDPlayer: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         x: 100, // Vị trí mặc định theo trục X
         y: 100, // Vị trí mặc định theo trục Y
         width: 300, // Chiều rộng mặc định
-        height: 400, // Chiều cao mặc định
+        height: 250, // Chiều cao mặc định
       }}
       minWidth={300} // Chiều rộng tối thiểu
-      minHeight={400} // Chiều cao tối thiểu
+      minHeight={200} // Chiều cao tối thiểu
       bounds="parent" // Giới hạn kéo thả trong phạm vi parent
       enableResizing={{ // Cho phép thay đổi kích thước
         bottom: true,
@@ -160,20 +153,19 @@ const CDPlayer: React.FC<{ onClose: () => void }> = ({ onClose }) => {
             </StationItem>
           ))}
         </StationList>
-        <SongLabel>
-          {currentStation ? `Now Playing: ${currentStation}` : 'No station playing'}
-        </SongLabel>
         <Controls>
           <Button onClick={fetchStations}>Reload Stations</Button>
           <Button onClick={stopStation} disabled={!currentStation}>
             Stop
           </Button>
         </Controls>
-        {currentStation && (
+        {currentStation ? (
           <audio controls autoPlay>
             <source src={currentStation} type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
+        ) : (
+          <div>No station playing</div>
         )}
       </CDPlayerContainer>
     </Rnd>
