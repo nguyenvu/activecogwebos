@@ -12,8 +12,11 @@
     "axios": "^1.7.9",
     "framer-motion": "^12.4.7",
     "next": "15.1.7",
+    "radio-browser-api": "^6.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-draggable": "^4.4.6",
+    "react-rnd": "^10.5.1",
     "styled-components": "^6.1.15",
     "zod": "^3.24.2"
   },

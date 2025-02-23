@@ -1,16 +1,21 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import MenuBar from '../components/MenuBar';
+import CDPlayer from '../components/CDPlayer';
+import AboutThisMac from '../components/AboutThisMac';
 
 const HomePage: React.FC = () => {
+  const [showCDPlayer, setShowCDPlayer] = useState(false);
+  const [showAboutThisMac, setShowAboutThisMac] = useState(false);
+
   return (
     <div style={{ backgroundColor: '#808080', minHeight: '100vh', padding: '16px' }}>
-      <MenuBar />
-      <h1 style={{ fontFamily: 'Chicago, sans-serif', fontSize: '24px', color: 'black' }}>
-        Welcome to My Portfolio
-      </h1>
-      <p style={{ fontFamily: 'Geneva, sans-serif', fontSize: '14px', color: 'black' }}>
-        This is my portfolio inspired by Apple System 7.
-      </p>
+      <MenuBar
+        onOpenCDPlayer={() => setShowCDPlayer(true)}
+        onOpenAboutThisMac={() => setShowAboutThisMac(true)}
+      />
+      {showCDPlayer && <CDPlayer onClose={() => setShowCDPlayer(false)} />}
+      {showAboutThisMac && <AboutThisMac onClose={() => setShowAboutThisMac(false)} />}
     </div>
   );
 };

@@ -14,8 +14,15 @@
   }
 }
 
+@font-face {
+  font-family: 'Chicago Plain';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Chicago Plain'), url('./Chicago.woff') format('woff');
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Chicago Plain", sans-serif;
 }

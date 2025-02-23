@@ -1,5 +1,4 @@
-'use client';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
 // Styled components
@@ -32,58 +31,62 @@ const DropdownMenu = styled.div`
   border: 2px solid black;
   padding: 4px;
   z-index: 10;
+  min-width:120px;
 `;
 
 const AppleIcon = styled.div`
   width: 20px;
   height: 20px;
-  background-image: url('https://www.systemuicons.com/images/icons/fingerprint.svg'); // Thay bằng đường dẫn icon của bạn
+  background-image: url('https://www.systemuicons.com/images/icons/lightning_alt.svg'); // Thay bằng đường dẫn icon của bạn
   background-size: cover;
   margin-right: 8px;
   cursor: pointer;
+  position: relative; // Thêm position relative để dropdown menu hiển thị đúng vị trí
 `;
 
 // MenuBar component
-const MenuBar: React.FC = () => {
+// MenuBar component
+const MenuBar: React.FC<{ onOpenCDPlayer: () => void; onOpenAboutThisMac: () => void }> = ({
+  onOpenCDPlayer,
+  onOpenAboutThisMac,
+}) => {
   const [showFileMenu, setShowFileMenu] = useState(false);
   const [showEditMenu, setShowEditMenu] = useState(false);
+  const [showApplicationsMenu, setShowApplicationsMenu] = useState(false);
+  const appleIconRef = useRef<HTMLDivElement>(null);
+
+  // Đóng dropdown menu khi click ra ngoài
+  const handleClickOutside = (event: MouseEvent) => {
+    if (appleIconRef.current && !appleIconRef.current.contains(event.target as Node)) {
+      setShowApplicationsMenu(false);
+    }
+  };
+
+  // Thêm event listener để đóng dropdown menu khi click ra ngoài
+  React.useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <MenuBarContainer>
       {/* Icon Apple */}
-      <AppleIcon />
-
-      {/* Menu File */}
-      <MenuItem
-        onClick={() => setShowFileMenu(!showFileMenu)}
-        onMouseLeave={() => setShowFileMenu(false)}
+      <AppleIcon
+        ref={appleIconRef}
+        onClick={() => setShowApplicationsMenu(!showApplicationsMenu)}
       >
-        File
-        {showFileMenu && (
+        {showApplicationsMenu && (
           <DropdownMenu>
-            <div>New</div>
-            <div>Open</div>
-            <div>Save</div>
-            <div>Exit</div>
+            <div onClick={onOpenAboutThisMac}>About This Mac</div> {/* Mở About This Mac */}
+            <div>Applications</div>
+            <div onClick={onOpenCDPlayer}>CD Player</div> {/* Mở CD Player */}
           </DropdownMenu>
         )}
-      </MenuItem>
+      </AppleIcon>
 
-      {/* Menu Edit */}
-      <MenuItem
-        onClick={() => setShowEditMenu(!showEditMenu)}
-        onMouseLeave={() => setShowEditMenu(false)}
-      >
-        Edit
-        {showEditMenu && (
-          <DropdownMenu>
-            <div>Undo</div>
-            <div>Cut</div>
-            <div>Copy</div>
-            <div>Paste</div>
-          </DropdownMenu>
-        )}
-      </MenuItem>
+      {/* Menu File và Edit (giữ nguyên như trước) */}
     </MenuBarContainer>
   );
 };
