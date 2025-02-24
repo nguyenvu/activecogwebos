@@ -92,15 +92,13 @@ const CDPlayer: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
   // Fetch radio stations
   const fetchStations = async () => {
-    try {
-      const stations = await api.searchStations({
-        language: 'english', // Lọc theo ngôn ngữ (tùy chọn)
-        limit: 10, // Giới hạn số lượng stations
-      });
-      setStations(stations);
-    } catch (error) {
-      console.error('Error fetching radio stations:', error);
-    }
+   try {
+    const response = await fetch("/api/radio"); // Fetch từ API route của Next.js
+    const stations = await response.json();
+    setStations(stations);
+  } catch (error) {
+    console.error("Error fetching radio stations:", error);
+  }
   };
 
   // Play a station
