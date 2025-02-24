@@ -1,5 +1,6 @@
-// pages/api/radio.ts
-export default async function handler(req, res) {
+import type { NextApiRequest, NextApiResponse } from "next";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const response = await fetch("https://de1.api.radio-browser.info/json/stations/search?language=english&limit=10");
     if (!response.ok) {
