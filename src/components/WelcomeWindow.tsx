@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import { Rnd } from 'react-rnd';
 
 // Styled components
-const AboutContainer = styled.div`
- background-color: #c0c0c0;
+const WelcomeContainer = styled.div`
+  background-color: #c0c0c0;
   border: 2px solid black;
   padding: 16px;
   font-family: 'Chicago', sans-serif;
   font-size: 12px;
   width: 100%;
-  height: 440px;
+  height: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,20 +18,23 @@ const AboutContainer = styled.div`
     box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.2);
 `;
 
-const LaptopIcon = styled.div`
-  width: 64px;
-  height: 64px;
-  background-image: url('/Classic-Mac.png'); // Thay bằng đường dẫn icon laptop của bạn
-  background-size: cover;
+const WelcomeImage = styled.img`
+  width: 640px;
+  height: 359px;
   margin-bottom: 16px;
 `;
 
-const InfoSection = styled.div`
+const WelcomeTitle = styled.h1`
+  font-size: 14px;
+  font-weight: bold;
   margin-bottom: 16px;
+  text-align:left;
 `;
 
-const InfoLine = styled.div`
-  margin-bottom: 8px;
+const WelcomeText = styled.p`
+  font-size: 10px;
+  line-height: 1.5;
+  text-align:left;
 `;
 
 const WindowHeader = styled.div`
@@ -81,7 +84,7 @@ const WindowTitle = styled.div`
 `;
 
 const WindowButtons = styled.div`
-display: flex;
+  display: flex;
   gap: 4px;
   height: 100%; /* Chiều cao bằng Window Header */
 `;
@@ -105,26 +108,18 @@ const WindowButton = styled.div`
   }
 `;
 
-// AboutThisMac component
-const AboutThisMac: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  // Lấy thông tin trình duyệt và hệ điều hành
-  const browserInfo = navigator.userAgent;
-  const osInfo = navigator.platform;
-  const screenResolution = `${window.screen.width}x${window.screen.height}, ${window.screen.colorDepth} bit`;
-  const language = navigator.language;
-
+// WelcomeWindow component
+const WelcomeWindow: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   return (
     <Rnd
       default={{
         x: 200, // Vị trí mặc định theo trục X
         y: 200, // Vị trí mặc định theo trục Y
-        width: 300, // Chiều rộng mặc định
-        height: 300, // Chiều cao mặc định
-        
+        width: 700, // Chiều rộng mặc định
+        height: 500, // Chiều cao mặc định
       }}
-      z={10} // Z-index
-      minWidth={300} // Chiều rộng tối thiểu
-      minHeight={350} // Chiều cao tối thiểu
+      minWidth={700} // Chiều rộng tối thiểu
+      minHeight={500} // Chiều cao tối thiểu
       bounds="parent" // Giới hạn kéo thả trong phạm vi parent
       enableResizing={{ // Cho phép thay đổi kích thước
         bottom: true,
@@ -133,27 +128,43 @@ const AboutThisMac: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       }}
       dragHandleClassName="window-header" // Chỉ kéo thả bằng thanh tiêu đề
     >
-      <AboutContainer>
+      <WelcomeContainer>
         <WindowHeader className="window-header">
-          <WindowTitle>About This Mac</WindowTitle>
+          {/* Nút Close bên trái */}
           <WindowButtons>
             <WindowButton onClick={onClose} /> {/* Nút Close */}
           </WindowButtons>
+
+          {/* Tiêu đề cửa sổ */}
+          <WindowTitle>Welcome</WindowTitle>
+
+          {/* Nút Minimize/Maximize bên phải */}
+          <WindowButtons>
+            <WindowButton onClick={() => alert('Minimize')} /> {/* Nút Minimize */}
+            <WindowButton onClick={() => alert('Maximize')} /> {/* Nút Maximize */}
+          </WindowButtons>
         </WindowHeader>
-        <LaptopIcon />
-        <InfoSection>
-          <InfoLine>Author: Vu Nguyen Thai</InfoLine>
-          <InfoLine>Email: nguyenvu@live.com</InfoLine>
-          <InfoLine>----</InfoLine>
-          <InfoLine>Your browser info:</InfoLine>
-          <InfoLine>Name: {browserInfo}</InfoLine>
-          <InfoLine>OS: {osInfo}</InfoLine>
-          <InfoLine>Screen resolution: {screenResolution}</InfoLine>
-          <InfoLine>Language: {language}</InfoLine>
-        </InfoSection>
-      </AboutContainer>
+
+        {/* Hình ảnh */}
+        <WelcomeImage
+          src="/welcome-image.jpg" // Thay bằng đường dẫn hình ảnh của bạn
+          alt="Welcome Image"
+        />
+
+        {/* Tiêu đề */}
+        <WelcomeTitle>
+          I’m Vu Nguyen Thai, a front-end developer and product designer currently based in Oslo, Norway.
+        </WelcomeTitle>
+
+        {/* Đoạn văn bản */}
+        <WelcomeText>
+          I’m working at Pixii AS, and I have a passion for front-end development and using Python for data processing. I’m also a big fan of macOS and Debian.
+          <br /><br />
+          In my free time, I enjoy playing retro games, collecting old computers, hiking in the woods, cycling, archery, cooking and camping outdoors, and fishing for mackerel.
+        </WelcomeText>
+      </WelcomeContainer>
     </Rnd>
   );
 };
 
-export default AboutThisMac;
+export default WelcomeWindow;

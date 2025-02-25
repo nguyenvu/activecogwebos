@@ -10,6 +10,7 @@ const MenuBarContainer = styled.div`
   border-bottom: 2px solid black;
   font-family: 'Chicago', sans-serif;
   font-size: 12px;
+  color: #000;
 `;
 
 const MenuItem = styled.div`
@@ -32,6 +33,11 @@ const DropdownMenu = styled.div`
   padding: 4px;
   z-index: 10;
   min-width:120px;
+  transition: all 0.5s;
+   div:hover{
+    background-color: #000;
+    color: #fff;
+  }
 `;
 
 const AppleIcon = styled.div`
@@ -46,9 +52,14 @@ const AppleIcon = styled.div`
 
 // MenuBar component
 // MenuBar component
-const MenuBar: React.FC<{ onOpenCDPlayer: () => void; onOpenAboutThisMac: () => void }> = ({
+const MenuBar: React.FC<{ onOpenCDPlayer: () => void; 
+  onOpenAboutThisMac: () => void; 
+  onOpenWelcomeWindow: () => void;
+  onFormatDrive: () => void; }> = ({
   onOpenCDPlayer,
   onOpenAboutThisMac,
+  onOpenWelcomeWindow,
+  onFormatDrive,
 }) => {
   const [showFileMenu, setShowFileMenu] = useState(false);
   const [showEditMenu, setShowEditMenu] = useState(false);
@@ -79,7 +90,10 @@ const MenuBar: React.FC<{ onOpenCDPlayer: () => void; onOpenAboutThisMac: () => 
       >
         {showApplicationsMenu && (
           <DropdownMenu>
+            <div onClick={onOpenWelcomeWindow}>Welcome</div> {/* Mở Welcome Window */}
+            ---
             <div onClick={onOpenAboutThisMac}>About This Mac</div> {/* Mở About This Mac */}
+            ---
             <div>Applications</div>
             <div onClick={onOpenCDPlayer}>CD Player</div> {/* Mở CD Player */}
           </DropdownMenu>
@@ -97,6 +111,9 @@ const MenuBar: React.FC<{ onOpenCDPlayer: () => void; onOpenAboutThisMac: () => 
             <div>New</div>
             <div>Open</div>
             <div>Save</div>
+            ---
+            <div onClick={onFormatDrive}>Format C: Drive</div> {/* Mở màn hình xanh */}
+            ---
             <div>Exit</div>
           </DropdownMenu>
         )}

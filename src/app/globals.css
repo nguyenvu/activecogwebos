@@ -20,9 +20,31 @@
   font-weight: normal;
   src: local('Chicago Plain'), url('./Chicago.woff') format('woff');
 }
-
+@font-face {
+  font-family: 'Chicago FLF';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Chicago FLF'), url('./ChicagoFLF.ttf') format('truetype');
+}
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: "Chicago Plain", sans-serif;
+  font-family: "Chicago FLF", serif;
+}
+.window-header {
+  font-family: "Chicago FLF", serif;
+  color:#000
+}
+div, p, h1, h2,h3,h4,h5,h6,select {
+  font-family: "Chicago FLF", serif;
+  color:#000;
+}
+select {
+  font-family: "Chicago FLF", serif;
+  font-size: 1.5rem;
+  color:#000;
+  border:2px solid #000;
+  border-radius:0;
+  background-color:#fff;
+  padding:4px;
 }

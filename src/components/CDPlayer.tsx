@@ -15,12 +15,15 @@ const CDPlayerContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.2);
 `;
 
 const StationList = styled.div`
   margin-bottom: 16px;
   max-height: 150px;
   overflow-y: auto;
+  color:#000;
+  border:2px solid black;
 `;
 
 const StationItem = styled.div`
@@ -56,22 +59,61 @@ const WindowHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
+  width: 100%;
+  height: 24px; /* Chiều cao cố định cho Window Header */
+  background-image: linear-gradient(
+    to bottom,
+    #000 10%,
+    transparent 10%,
+    transparent 20%,
+    #000 20%,
+    #000 30%,
+    transparent 30%,
+    transparent 40%,
+    #000 40%,
+    #000 50%,
+    transparent 50%,
+    transparent 60%,
+    #000 60%,
+    #000 70%,
+    transparent 70%,
+    transparent 80%,
+    #000 80%,
+    #000 90%,
+    transparent 90%,
+    transparent 100%
+  );
+  background-size: 100% 20px;
+  cursor: move; /* Con trỏ kéo 4 hướng */
 `;
 
 const WindowTitle = styled.div`
   font-weight: bold;
+  padding: 0 16px; /* Padding left và right */
+  background-color: #c0c0c0; /* Nền màu trắng */
+//   border: 1px solid black;
+  text-align: center;
+  height: 100%; /* Chiều cao bằng Window Header */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000; /* Màu chữ đen */
 `;
 
 const WindowButtons = styled.div`
   display: flex;
   gap: 4px;
+  height: 100%; /* Chiều cao bằng Window Header */
 `;
 
 const WindowButton = styled.div`
-  width: 12px;
-  height: 12px;
+  width: 24px;
+  height: 100%; /* Chiều cao bằng Window Header */
   border: 2px solid black;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:nth-child(1) {
     background-color: #ff5f56; // Close button (red)
   }
